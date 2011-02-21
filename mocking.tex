@@ -7,6 +7,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 
+
+\usepackage{listings} \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt} \lstset{language=Java} 
+
 %\usetheme{}
 % BUILD SCRIPT HOOKS - DO NOT REMOVE THIS COMMENTS %
 %%%%%THEME_PLACEHOLDER_JENKINSBUILD%%%%%
@@ -111,7 +114,7 @@
 
 			\begin{frame}
 				\frametitle{Problem}
-				Problem?! 
+				\lstinline|System.out.println("hello world");|
 			\end{frame}
 
 			\begin{frame}
@@ -122,9 +125,20 @@
 
 		\subsection{Problem 2}
 
-			\begin{frame}
+			\begin{frame}[fragile]
 				\frametitle{Problem}
-				Problem!?!??!
+
+				\begin{lstlisting}
+					@BadStyle
+					public class Foo {
+						private Bar bar = Bar.getInstance();
+
+						public void callBar(){
+							bar.call("oh, hi!");
+						}
+					}
+				\end{lstlisting}
+
 			\end{frame}
 
 			\begin{frame}
