@@ -8,9 +8,9 @@
 \usepackage{graphicx}
 
 
-\usepackage{listings} \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt} \lstset{language=Java} 
+\usepackage{listings} \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, showstringspaces=false, basicstyle=\scriptsize} \lstset{language=Java} 
 
-%\usetheme{}
+\usetheme{Darmstadt}
 % BUILD SCRIPT HOOKS - DO NOT REMOVE THIS COMMENTS %
 %%%%%THEME_PLACEHOLDER_JENKINSBUILD%%%%%
 %%%%%HANDOUT_PLACEHOLDER_JENKINSBUILD%%%%%
@@ -67,7 +67,12 @@
 
 			\begin{frame}
 				\frametitle{Frameworks}
-				Frameworks sind toll!
+				\begin{itemize}
+					\item{JUnit}
+					\item{Mockito}
+					\item{PowerMock}
+					\item{(TestNG)}
+				\end{itemize}
 			\end{frame}
 
 			\begin{frame}
@@ -108,7 +113,76 @@
 	%
 	
 	\section{Mockito \& PowerMock}
+		\subsection{Einleitung}
+			\begin{frame}
+				\frametitle{Was ist ein Mock?}
+				\begin{itemize}
+					\item{engl. Mock-up (Attrappe / Simulation)}
+					\item{Attrappe eines Objekts}
+					\item{Selbe Schnittstelle wie das Original-Objekt}
+					\item{Ersatz fuer Komponenten, die die zu testende Komponente benoetigt}
+					\item{Garantiert definiertes Verhalten waehrend des Tests}
+				\end{itemize}
 
+			\end{frame}
+
+			\begin{frame}
+				\frametitle{Mockito- und Power-Mocks}
+				Mockito
+				\begin{itemize}
+					\item{Einfache Erstellung}
+					\item{Leicht konfigurierbares Verhalten}
+					\item{Aufzeichnung aller Calls}
+				\end{itemize}
+				\pause
+				PowerMock
+				\begin{itemize}
+					\item{Mit Java-Bordmitteln normalerweise nicht mockbare Komponenten mocken}
+					\item{Deep and dark magic}
+						\begin{itemize}
+							\item{Byte code Manipulation (javaassist)}
+							\item{Classloader-Manipulation}
+						\end{itemize}
+				\end{itemize}
+			\end{frame}
+
+		\subsection{Mocking}
+		\subsection{Partial Mocking}
+		\subsection{Constructor call prevention}
+			\begin{frame}[fragile]
+				\frametitle{A constructor nightmare}
+
+				\begin{lstlisting}
+					public class Foo {
+					  public Foo(){
+					    if(!MyFrameworkMegaUtil.isFrameworkProperlyInitialized()){
+					      MyFrameworkMegaUtil.initializeFramework();	
+					    }
+					  }
+
+					  public int sum(int x, int y){
+					    return x+y;
+					  }
+					}
+				\end{lstlisting}
+
+			\end{frame}
+
+			\begin{frame}[fragile]
+				\frametitle{Solution!}
+
+				\begin{lstlisting}
+					public class FooTest {
+					  @Test
+					  public void testSum(){
+					    Foo comp = WhiteBox.newInstance(Foo.class);
+					    assertEquals(5, comp.sum(2, 3));
+					  }
+					}
+				\end{lstlisting}
+
+			\end{frame}
+		\subsection{Static / Final Mocks}
 
 		\subsection{Problem 1}
 
@@ -131,11 +205,11 @@
 				\begin{lstlisting}
 					@BadStyle
 					public class Foo {
-						private Bar bar = Bar.getInstance();
+					    private Bar bar = Bar.getInstance();
 
-						public void callBar(){
-							bar.call("oh, hi!");
-						}
+					    public void callBar(){
+					        bar.call("oh, hi!");
+					    }
 					}
 				\end{lstlisting}
 
