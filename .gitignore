@@ -1,3 +1,4 @@
 mocking.*
 !mocking.tex
 texput.log
+.directory
