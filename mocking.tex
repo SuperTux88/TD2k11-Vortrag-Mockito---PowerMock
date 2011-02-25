@@ -29,6 +29,7 @@
 }
 
 \begin{document}
+
 	\begin{frame}
 		\titlepage
 	\end{frame}
@@ -49,11 +50,13 @@
 
 			\begin{frame}
 				\frametitle{Was ist Unit-Testing?}
+
 				Unit-Testing ist toll!
 			\end{frame}
 
 			\begin{frame}
 				\frametitle{Was ist Test driven development?}
+
 				Test driven development ist toll!
 			\end{frame}
 
@@ -67,6 +70,7 @@
 
 			\begin{frame}
 				\frametitle{Frameworks}
+
 				\begin{itemize}
 					\item{JUnit}
 					\item{Mockito}
@@ -77,6 +81,7 @@
 
 			\begin{frame}
 				\frametitle{Continuous Integration}
+
 				\begin{itemize}
 					\item{Hudson / Jenkins}
 					\item{Continuum}
@@ -86,29 +91,85 @@
 
 			\begin{frame}
 				\frametitle{EMMA}
+
 				EMMA ist ne Geile!
 				TODO: fancy eclipse emma code coverage screenshot!
 			\end{frame}
 
 	%
-	% JUnit \& Mockito
+	% JUnit und Mockito
 	%
 	
 	\section{JUnit \& Mockito}
 
 		\subsection{Testen mit JUnit}
+
 			\begin{frame}
 				\frametitle{Was ist JUnit?}
+
+				\begin{itemize}
+					\item{''Standard''-Framework fuer Java-Unittests}
+					\item{Testergebnis OK (gruen) / nicht OK (rot)}
+					\item{Sehr einfache Bedienung (Annotations, \ldots)}
+					\item{Aktuelle Version: JUnit 4}
+				\end{itemize}
 			\end{frame}
-			\begin{frame}
-				\frametitle{Zu testende Beispielklasse}
-				Refactoring ist toll!
+
+			\begin{frame}[fragile]
+				\frametitle{Test-Klasse}
+
+				\begin{lstlisting}
+					public class CalculatorTest {
+					  private Calculator calculator;
+
+					  @Before
+					  public void setup() {
+					    calculator = new Calculator();
+					  }
+
+					  @Test
+					  public void testSum(){
+					    assertEquals(5, calculator.sum(2, 3));
+					  }
+
+					  @Test
+					  public void testSumWithNegativeValue(){
+					    assertEquals(-5, calculator.sum(-2, -3));
+					  }
+					  // ...
+					}
+				\end{lstlisting}
 			\end{frame}
 		
+			\begin{frame}[fragile]
+				\frametitle{Zu testende Beispielklasse}
+
+				\begin{lstlisting}
+					public class Calculator {
+					  public int sum(int x, int y){
+					    return x + y;
+					  }
+					  // ...
+					}
+				\end{lstlisting}
+			\end{frame}
+
+			\begin{frame}[fragile]
+				\frametitle{Fehlerfall testen}
+
+				\begin{lstlisting}
+					@Test(expected = DivisionByZeroException.class)
+					public void expectExceptionOnDivisionByZero(){
+					  calculator.divide(1, 0);
+					}
+				\end{lstlisting}
+			\end{frame}
 
 		\subsection{Mocking mit Mockito}
+
 			\begin{frame}
 				\frametitle{Was ist ein Mock?}
+
 				\begin{itemize}
 					\item{engl. Mock-up (Attrappe / Simulation)}
 					\item{Attrappe eines Objekts}
@@ -120,6 +181,7 @@
 
 			\begin{frame}
 				\frametitle{Mockito}
+
 				\begin{itemize}
 					\item{Sehr einfache Mock-Erstellung}
 					\item{Mockverhalten leicht konfigurierbar}
@@ -131,14 +193,16 @@
 		%\subsection{Partial Mocking} frame wenn es eine mockito technologie ist
 
 	%
-	% Mockito und PowerMock
+	% PowerMock
 	%
 	
 	\section{PowerMock}
+
 		\subsection{Einleitung}
 
 			\begin{frame}
 				\frametitle{PowerMock}
+
 				\begin{itemize}
 					\item{Mit Java-Bordmitteln normalerweise nicht mockbare Komponenten mocken}
 					\item{Deep and dark magic}
@@ -147,10 +211,10 @@
 							\item{Classloader-Manipulation}
 						\end{itemize}
 				\end{itemize}
-
 			\end{frame}
 
 		\subsection{Constructor call prevention}
+
 			\begin{frame}[fragile]
 				\frametitle{A constructor nightmare}
 
@@ -167,7 +231,6 @@
 					  }
 					}
 				\end{lstlisting}
-
 			\end{frame}
 
 			\begin{frame}[fragile]
@@ -182,9 +245,10 @@
 					  }
 					}
 				\end{lstlisting}
-
 			\end{frame}
+
 		\subsection{Static / Final Mocks}
+
 			\begin{frame}[fragile]
 				\frametitle{A static nightmare}
 
@@ -204,7 +268,6 @@
 					  }
 					}
 				\end{lstlisting}
-
 			\end{frame}
 
 			\begin{frame}[fragile]
@@ -234,10 +297,12 @@
 	%
 
 	\section{Abschluss}
+
 		\subsection{Common Pitfalls}
 
 			\begin{frame}
 				\frametitle{Beachten!}
+
 				\begin{itemize}
 					\item{Nicht die Implementierung sondern das Verhalten der Komponente testen (Refactoring von ungetestetem Code!)}
 					\pause
@@ -260,6 +325,7 @@
 
 			\begin{frame}
 				\frametitle{Quellen und Wissenswertes}
+
 				\scriptsize
 				Wissenswertes
 				\begin{itemize}
@@ -267,6 +333,7 @@
 					\item{\url{http://de.wikipedia.org/wiki/Testgetriebene\_Entwicklung}}
 					\item{\url{http://de.wikipedia.org/wiki/Mock-Objekt}}
 				\end{itemize}
+
 				JUnit \& Mockito \& PowerMock 
 				\begin{itemize}
 					\item{JUnit: \url{http://www.junit.org}}
@@ -274,12 +341,12 @@
 					\item{PowerMock: \url{http://code.google.com/p/powermock/}}
 				\end{itemize}
 
-				EMMA \& Hudson \& Jenkins
+				Hudson \& Jenkins \& EMMA
 				\begin{itemize}
-					\item{Hudson: http://www.hudson-ci.org}
-					\item{Jenkins: http://www.jenkins-ci.org}
-					\item{EMMA: http://emma.sourceforge.net}
-					\item{Ecl-Emma: http://www.eclemma.org}
+					\item{Hudson: \url{http://www.hudson-ci.org}}
+					\item{Jenkins: \url{http://www.jenkins-ci.org}}
+					\item{EMMA: \url{http://emma.sourceforge.net}}
+					\item{Ecl-Emma: \url{http://www.eclemma.org}}
 				\end{itemize}
 			\end{frame}
 
