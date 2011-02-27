@@ -52,14 +52,39 @@
 
 			\begin{frame}
 				\frametitle{Was ist Unit-Testing?}
-
-				Unit-Testing ist toll!
+				Unit-Test:
+				\begin{itemize}
+					\item{Test einzelner Komponente (Unit)}
+					\item{Komponente waehrend des Tests vom Gesamtsystem isoliert (Seiteneffekte vermeiden)}
+					\item{Test deckt Normalverhalten und explizit auch den Fehlerfall ab}
+				\end{itemize}
+				\pause
+				Ziel:
+				\begin{itemize}
+					\item{Fruehzeitiges Erkennen von Fehlern}
+					\item{Test von spezifiziertem Komponentenverhalten (Refactoring!)}
+					\item{\color{red}\textbf{$\Rightarrow$ Wartbarkeit und hohe Qualitaet}} % TODO remove dot!
+				\end{itemize}
+				
 			\end{frame}
 
 			\begin{frame}
 				\frametitle{Was ist Test-driven development?}
-
-				Test-driven development ist toll!
+				TTD
+				\begin{itemize}
+					\item{Entwicklungstechnik aus dem Bereich der agilen Softwareentwicklung}
+					\item{Erst Testcases, dann Implementierung der Komponente}
+					\item{Testcases sind Black/Grey-Box Tests}
+					% Beispiel fuer Grey-Box: Komponente die Socket aufmacht. Socket explizit killen.
+				\end{itemize}
+				\pause
+				Ziele von TTD
+				\begin{itemize}
+					\item{Klar definiertes Komponentenverhalten zum Implementierungszeitpunkt}
+					\item{Sicherstellung der Testabdeckung} % Wer schreibt nacher schon noch Testcases? Zeitdruck / Faulheit..
+					\item{Sicherstellung der Testqualitaet (Kein Whiteboxtest!)} % kein test der internen komponentenimplementierung!
+					\item{\color{red}\textbf{$\Rightarrow$ Wartbarkeit und hohe Qualitaet}} % TODO remove dot!
+				\end{itemize}
 			\end{frame}
 
 	%
@@ -87,6 +112,7 @@
 				\begin{itemize}
 					\item{Hudson / Jenkins}
 					\item{Continuum}
+					\item{CruiseControl}
 					\item{\ldots}
 				\end{itemize}
 			\end{frame}
