@@ -148,7 +148,7 @@
 			\end{frame}
 
 			\begin{frame}[fragile]
-				\frametitle{Test-Klasse}
+				\frametitle{Test-Klasse: Int-Calculator}
 
 				\begin{lstlisting}
 					public class CalculatorTest {
@@ -174,12 +174,16 @@
 			\end{frame}
 		
 			\begin{frame}[fragile]
-				\frametitle{Zu testende Beispielklasse}
+				\frametitle{Int-Calculator}
 
 				\begin{lstlisting}
 					public class Calculator {
 					  public int sum(int x, int y){
 					    return x + y;
+					  }
+
+					  public int divide(int x, int y){
+					    return x/y;
 					  }
 					  // ...
 					}
@@ -190,7 +194,7 @@
 				\frametitle{Fehlerfall testen}
 
 				\begin{lstlisting}
-					@Test(expected = DivisionByZeroException.class)
+					@Test(expected = DivideByZeroException.class)
 					public void expectExceptionOnDivisionByZero(){
 					  calculator.divide(1, 0);
 					}
@@ -222,6 +226,30 @@
 				\end{itemize}
 			\end{frame}
 
+			\begin{frame}[fragile]
+				\frametitle{Mockito Beispiel}
+				\begin{lstlisting}
+				CokeRepository cokeRepo = mock(CokeRepository.class);
+				FantaRepository fantaRepo = mock(FantaRepository.class);
+
+				when(cokeRepo.get("afri")).thenReturn(new AfriCola());
+				when(fantaRepo.get(anyString())).thenThrow(new EmptyException());
+
+				DrinksDispenser drinksDispenser = new DrinksDispenser();
+				drinksDispenser.setCokeRepository(cokeRepo);
+				drinksDispenser.setFantaRepository(fantaRepo);
+
+				assertTrue(drinkDispenser.getAfri() instanceof AfriCola);
+				assertNull(drinkDispenser.getFanta());
+
+				verify(cokeRepo, times(1)).get("afri");
+				verify(fantaRepo, times(1)).get(anyString());
+
+				verifyNoMoreInteractions(cokeRepo);
+				verifyNoMoreInteractions(fantaRepo);
+				\end{lstlisting}
+				
+			\end{frame}
 		%\subsection{Partial Mocking} frame wenn es eine mockito technologie ist
 
 	%
