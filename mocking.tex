@@ -250,6 +250,25 @@
 				\end{lstlisting}
 				
 			\end{frame}
+
+			\begin{frame}[fragile]
+				\frametitle{Spying}
+				\color{red}\textbf{Code smell!}
+				\color{black}
+				\begin{lstlisting}
+				@Test
+				public void setSize() {
+				  template = Mockito.spy(template);
+
+				  template.setSize(23, 42);
+
+				  verify(template).setPreferredSize(new Dimension(23, 42));
+
+				  Assert.assertEquals(23, template.getWidth());
+				  Assert.assertEquals(42, template.getHeight());
+				}
+				\end{lstlisting}
+			\end{frame}
 		%\subsection{Partial Mocking} frame wenn es eine mockito technologie ist
 
 	%
