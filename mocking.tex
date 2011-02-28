@@ -205,6 +205,13 @@
 				\end{lstlisting}
 			\end{frame}
 
+			\begin{frame}
+				\frametitle{Die Klasse org.junit.Assert}
+				\begin{block}{Assertions}
+					Todo: asserions here
+				\end{block}
+			\end{frame}
+
 		\logo{\includegraphics[height=1cm]{images/mockito}}
 		\subsection{Mocking mit Mockito}
 
@@ -273,6 +280,26 @@
 				  Assert.assertEquals(42, template.getHeight());
 				}
 				\end{lstlisting}
+			\end{frame}
+
+			\begin{frame}
+				\frametitle{Die Klasse org.mockito.Mockito}
+
+				\begin{block}{Verifications}
+				verify, verifyNoMoreInteractions, verifyZeroInteractions
+				\end{block}
+
+				\begin{block}{VerificationModes}
+				atLeast, atLeastOnce, atMost, never, only, times
+				\end{block}
+			\end{frame}
+
+			\begin{frame}
+				\frametitle{Die Klasse org.mockito.Matchers}
+
+				\begin{block}{Matcher}
+				any, anyBoolean, anyByte, anyChar, anyCollection, anyCollectionOf, anyDouble, anyFloat, anyInt, anyList, anyListOf, anyLong, anyMap, anyObject, anySet, anySetOf, anyShort, anyString, anyVararg, argThat, booleanThat, byteThat, charThat, contains, doubleThat, endsWith, eq, floatThat, intThat, isA, isNotNull, isNull, longThat, matches, notNull, refEq, same, shortThat, startsWith
+				\end{block}
 			\end{frame}
 		%\subsection{Partial Mocking} frame wenn es eine mockito technologie ist
 
