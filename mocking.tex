@@ -7,10 +7,12 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 
+%listings
+\usepackage{listings}
+\lstset{numbers=left, numberstyle=\tiny, numbersep=2pt, showstringspaces=false, basicstyle=\scriptsize}
+\lstset{language=Java} 
 
-\usepackage{listings} \lstset{numbers=left, numberstyle=\tiny, numbersep=2pt, showstringspaces=false, basicstyle=\scriptsize} \lstset{language=Java} 
-
-\usetheme{Darmstadt}
+\usetheme{Darmstadt} % default theme
 % BUILD SCRIPT HOOKS - DO NOT REMOVE THIS COMMENTS %
 %%%%%THEME_PLACEHOLDER_JENKINSBUILD%%%%%
 %%%%%HANDOUT_PLACEHOLDER_JENKINSBUILD%%%%%
@@ -25,11 +27,11 @@
 
 \institute[TD 2k11]{Computerseminar Tondorf 2011}
 
-\author[F. Becker, B. Neff]{
-        Felix Becker \& 
-	Benjamin Neff
+\author[B. Neff, F. Becker]{
+	Benjamin Neff \&
+        Felix Becker
 }
-% TODO namen drehen und logo einblenden
+
 % \logo{\includegraphics[height=1cm]{images/bechtle}}
 
 \begin{document}
@@ -55,38 +57,40 @@
 
 			\begin{frame}
 				\frametitle{Was ist Unit-Testing?}
-				Unit-Test:
+
+				Unit-Testing:
 				\begin{itemize}
 					\item{Test einzelner Komponente (Unit)}
-					\item{Komponente waehrend des Tests vom Gesamtsystem isoliert (Seiteneffekte vermeiden)}
+					\item{Komponente während des Tests vom Gesamtsystem isoliert (Seiteneffekte vermeiden)}
 					\item{Test deckt Normalverhalten und explizit auch den Fehlerfall ab}
 				\end{itemize}
 				\pause
-				Ziel:
+				Ziele von Unit-Testing:
 				\begin{itemize}
 					\item{Fruehzeitiges Erkennen von Fehlern}
 					\item{Test von spezifiziertem Komponentenverhalten (Refactoring!)}
-					\item{\color{red}\textbf{$\Rightarrow$ Wartbarkeit und hohe Qualitaet}} % TODO remove dot!
+					\item[]{\color{red}\textbf{$\Rightarrow$ Wartbarkeit und hohe Qualität}}
 				\end{itemize}
 				
 			\end{frame}
 
 			\begin{frame}
 				\frametitle{Was ist Test-driven development?}
-				TTD
+				
+				TDD:
 				\begin{itemize}
 					\item{Entwicklungstechnik aus dem Bereich der agilen Softwareentwicklung}
 					\item{Erst Testcases, dann Implementierung der Komponente}
 					\item{Testcases sind Black/Grey-Box Tests}
-					% Beispiel fuer Grey-Box: Komponente die Socket aufmacht. Socket explizit killen.
+					% Beispiel für Grey-Box: Komponente die Socket aufmacht. Socket explizit killen.
 				\end{itemize}
 				\pause
-				Ziele von TTD
+				Ziele von TDD:
 				\begin{itemize}
 					\item{Klar definiertes Komponentenverhalten zum Implementierungszeitpunkt}
 					\item{Sicherstellung der Testabdeckung} % Wer schreibt nacher schon noch Testcases? Zeitdruck / Faulheit..
-					\item{Sicherstellung der Testqualitaet (Kein Whiteboxtest!)} % kein test der internen komponentenimplementierung!
-					\item{\color{red}\textbf{$\Rightarrow$ Wartbarkeit und hohe Qualitaet}} % TODO remove dot!
+					\item{Sicherstellung der Testqualität (Kein Whiteboxtest!)} % kein test der internen komponentenimplementierung!
+					\item[]{\color{red}\textbf{$\Rightarrow$ Wartbarkeit und hohe Qualität}}
 				\end{itemize}
 			\end{frame}
 
@@ -207,6 +211,7 @@
 
 			\begin{frame}
 				\frametitle{Die Klasse org.junit.Assert}
+
 				\begin{block}{Assertions}
 					assertArrayEquals, assertEquals, assertFalse, assertNotNull, assertNotSame, assertNull, assertSame, assertThat, assertTrue, fail
 				\end{block}
@@ -240,45 +245,46 @@
 
 			\begin{frame}[fragile]
 				\frametitle{Mockito Beispiel}
+
 				\begin{lstlisting}
-				CokeRepository cokeRepo = mock(CokeRepository.class);
-				FantaRepository fantaRepo = mock(FantaRepository.class);
+					CokeRepository cokeRepo = mock(CokeRepository.class);
+					FantaRepository fantaRepo = mock(FantaRepository.class);
 
-				when(cokeRepo.get("afri")).thenReturn(new AfriCola());
-				when(fantaRepo.get(anyString())).thenThrow(new EmptyException());
+					when(cokeRepo.get("afri")).thenReturn(new AfriCola());
+					when(fantaRepo.get(anyString())).thenThrow(new EmptyException());
 
-				DrinksDispenser drinksDispenser = new DrinksDispenser();
-				drinksDispenser.setCokeRepository(cokeRepo);
-				drinksDispenser.setFantaRepository(fantaRepo);
+					DrinksDispenser drinksDispenser = new DrinksDispenser();
+					drinksDispenser.setCokeRepository(cokeRepo);
+					drinksDispenser.setFantaRepository(fantaRepo);
 
-				assertTrue(drinkDispenser.getAfri() instanceof AfriCola);
-				assertNull(drinkDispenser.getFanta());
+					assertTrue(drinkDispenser.getAfri() instanceof AfriCola);
+					assertNull(drinkDispenser.getFanta());
 
-				verify(cokeRepo, times(1)).get("afri");
-				verify(fantaRepo, times(1)).get(anyString());
+					verify(cokeRepo, times(1)).get("afri");
+					verify(fantaRepo, times(1)).get(anyString());
 
-				verifyNoMoreInteractions(cokeRepo);
-				verifyNoMoreInteractions(fantaRepo);
+					verifyNoMoreInteractions(cokeRepo);
+					verifyNoMoreInteractions(fantaRepo);
 				\end{lstlisting}
-				
 			\end{frame}
 
 			\begin{frame}[fragile]
 				\frametitle{Spying}
+
 				\color{red}\textbf{Code smell!}
 				\color{black}
 				\begin{lstlisting}
-				@Test
-				public void setSize() {
-				  template = Mockito.spy(template);
+					@Test
+					public void setSize() {
+					  template = Mockito.spy(template);
 
-				  template.setSize(23, 42);
+					  template.setSize(23, 42);
 
-				  verify(template).setPreferredSize(new Dimension(23, 42));
+					  verify(template).setPreferredSize(new Dimension(23, 42));
 
-				  Assert.assertEquals(23, template.getWidth());
-				  Assert.assertEquals(42, template.getHeight());
-				}
+					  Assert.assertEquals(23, template.getWidth());
+					  Assert.assertEquals(42, template.getHeight());
+					}
 				\end{lstlisting}
 			\end{frame}
 
