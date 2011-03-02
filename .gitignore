@@ -2,3 +2,7 @@ mocking.*
 !mocking.tex
 texput.log
 .directory
+project/target
+project/.classpath
+project/.project
+project/.settings
