@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import de.tondorf.mockingvortrag.dispenser.CokeRepository;
@@ -40,12 +39,11 @@ public class DrinkDispenserTest {
 		verifyNoMoreInteractions(cokeRepo);
 		verifyNoMoreInteractions(fantaRepo);
 	}
-	
+
 	@Test
 	public void testNoAfri() {
 		final CokeRepository cokeRepo = mock(CokeRepository.class);
-		final AfriCola afri = mock(AfriCola.class);
-		
+
 		when(cokeRepo.get("afri")).thenThrow(new EmptyException());
 
 		final DrinksDispenser drinkDispenser = new DrinksDispenser();
@@ -57,12 +55,12 @@ public class DrinkDispenserTest {
 
 		verifyNoMoreInteractions(cokeRepo);
 	}
-	
+
 	@Test
 	public void testFanta() {
 		final FantaRepository fantaRepo = mock(FantaRepository.class);
 		final Fanta fanta = mock(Fanta.class);
-		
+
 		when(fantaRepo.get("fanta")).thenReturn(fanta);
 
 		final DrinksDispenser drinkDispenser = new DrinksDispenser();
