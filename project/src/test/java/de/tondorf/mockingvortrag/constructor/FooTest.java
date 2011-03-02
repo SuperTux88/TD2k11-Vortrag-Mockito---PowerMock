@@ -13,7 +13,7 @@ public class FooTest {
 	}
 
 	@Test
-	// Fuer coverage
+	// coverage ;-)
 	public void testConstructor() {
 		new Foo();
 	}
