@@ -31,7 +31,7 @@ public class DrinksDispenser {
 
 	public Object getFanta() {
 		try {
-			return fantaRepo.get("fante");
+			return fantaRepo.get("fanta");
 		} catch (final EmptyException e) {
 			LOG.error("EMPTY", e);
 			return null;

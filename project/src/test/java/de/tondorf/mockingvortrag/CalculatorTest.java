@@ -51,6 +51,13 @@ public class CalculatorTest {
 		verify(loggerMock, times(1)).debug(anyString());
 	}
 
+	@Test
+	public void testDivide() {
+		final int result = calculator.divide(6, 2);
+		assertEquals(3, result);
+		verify(loggerMock, times(1)).debug(anyString());
+	}
+
 	@Test(expected = ArithmeticException.class)
 	public void expectExceptionOnDivisionByZero() {
 		calculator.divide(1, 0);
