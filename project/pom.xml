@@ -14,6 +14,8 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- TEST -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -43,6 +45,16 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>emma-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<build>
 		<plugins>

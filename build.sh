@@ -14,6 +14,6 @@ for theme in AnnArbor Antibes Bergen Berkeley Berlin Boadilla CambridgeUS Copenh
 done;
 
 cd project
-mvn clean test
+mvn clean emma:emma
 
 exit 0
