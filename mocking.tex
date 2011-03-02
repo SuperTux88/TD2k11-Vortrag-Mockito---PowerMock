@@ -191,7 +191,7 @@
 					  }
 
 					  public int divide(int x, int y){
-					    return x/y;
+					    return x / y;
 					  }
 					  // ...
 					}
@@ -202,7 +202,7 @@
 				\frametitle{Fehlerfall testen}
 
 				\begin{lstlisting}
-					@Test(expected = DivideByZeroException.class)
+					@Test(expected = ArithmeticException.class)
 					public void expectExceptionOnDivisionByZero(){
 					  calculator.divide(1, 0);
 					}
@@ -256,9 +256,9 @@
 					when(cokeRepo.get("afri")).thenReturn(new AfriCola());
 					when(fantaRepo.get(anyString())).thenThrow(new EmptyException());
 
-					DrinksDispenser drinksDispenser = new DrinksDispenser();
-					drinksDispenser.setCokeRepository(cokeRepo);
-					drinksDispenser.setFantaRepository(fantaRepo);
+					DrinksDispenser drinkDispenser = new DrinksDispenser();
+					drinkDispenser.setCokeRepository(cokeRepo);
+					drinkDispenser.setFantaRepository(fantaRepo);
 
 					assertTrue(drinkDispenser.getAfri() instanceof AfriCola);
 					assertNull(drinkDispenser.getFanta());
