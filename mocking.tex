@@ -368,6 +368,54 @@
 				\end{lstlisting}
 			\end{frame}
 
+			\begin{frame}[fragile]
+				\frametitle{Problem mit Socket}
+
+				\begin{lstlisting}
+					public class Connection {
+					  private Socket socket;
+
+					  public void connect() throws UnknownHostException,
+					      IOException {
+					    socket = new Socket("localhost", 1337);
+					  }
+
+					  public void disconnect() throws IOException {
+					    socket.close();
+					  }
+
+					  // ...
+					}
+				\end{lstlisting}
+			\end{frame}
+
+			\begin{frame}[fragile]
+				\frametitle{Solution!}
+
+				\begin{lstlisting}
+					@PrepareForTest(Connection.class)
+					@RunWith(PowerMockRunner.class)
+					public class ConnectionTest {
+					  @Test
+					  public void testConnectAndDisconnect() throws Exception {
+					    final Socket socket = mock(Socket.class);
+
+					    PowerMockito.whenNew(Socket.class)
+					      .withArguments(anyString(), anyInt())
+					      .thenReturn(socket);
+
+					    final Connection connection = new Connection();
+					    connection.connect();
+					    connection.disconnect();
+
+					    PowerMockito.verifyNew(Socket.class)
+					      .withArguments("localhost", 1337);
+					    verify(socket).close();
+					  }
+					}
+				\end{lstlisting}
+			\end{frame}
+
 		\subsection{Static / Final Mocks}
 
 			\begin{frame}[fragile]
