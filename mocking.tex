@@ -67,7 +67,7 @@
 				\pause
 				Ziele von Unit-Testing:
 				\begin{itemize}
-					\item{Fruehzeitiges Erkennen von Fehlern}
+					\item{Frühzeitiges Erkennen von Fehlern}
 					\item{Test von spezifiziertem Komponentenverhalten (Refactoring!)}
 					\item[]{\color{red}\textbf{$\Rightarrow$ Wartbarkeit und hohe Qualität}}
 				\end{itemize}
@@ -423,7 +423,7 @@
 
 				\begin{lstlisting}
 					public class Foo {
-					  public int testMe(){
+					  public int testStatic(){
 					    int sth = sth();
 					    int y = DrEvil.getEvil(sth);	
 					    return sth + y;
@@ -447,11 +447,11 @@
 					@RunWith(PowerMockRunner.class)
 					public class FooTest {
 					  @Test
-					  public void testIt(){
+					  public void testStatic(){
 					    PowerMockito.mockStatic(DrEvil.class);
 					    Mockito.when(DrEvil.getEvil(anyInt())).thenReturn(1);
 					    Foo foo = new Foo();
-					    assertEquals(1,foo.testMe());
+					    assertEquals(1,foo.testStatic());
 
 					    // static verification
 					    PowerMockito.verifyStatic();
@@ -461,6 +461,52 @@
 				\end{lstlisting}
 			\end{frame}
 
+			\begin{frame}[fragile]
+				\frametitle{A final nightmare}
+
+				\begin{lstlisting}
+					public class Foo {
+					  private MyCoolLibrary lib;
+
+					  public void setLib(final MyCoolLibrary lib) {
+					    this.lib = lib;
+					  }
+
+					  public void testFinal() {
+					    lib.doFinal();
+					    // ...
+					  }
+					  // ...
+					}
+
+					public final class MyCoolLibrary {
+					  public void doFinal() {
+					    // ...
+					  }
+					}
+				\end{lstlisting}
+			\end{frame}
+
+			\begin{frame}[fragile]
+				\frametitle{Solution!}
+
+				\begin{lstlisting}
+					@PrepareForTest(MyCoolLibrary.class)
+					@RunWith(PowerMockRunner.class)
+					public class FooTest {
+					  @Test
+					  public void testFinal() {
+					    final MyCoolLibrary lib = mock(MyCoolLibrary.class);
+
+					    final Foo foo = new Foo();
+					    foo.setLib(lib);
+					    foo.testFinal();
+
+					    verify(lib).doFinal();
+					  }
+					}
+				\end{lstlisting}
+			\end{frame}
 
 	%
 	% Abschluss 
@@ -481,7 +527,7 @@
 					\pause
 					\item{Zu niedrige Code-Coverage nach Testfertigstellung weist auf ein Design-Problem hin (auch Boilerplate abdecken!)}
 					\pause
-					\item{Immer Fehlerfallverhalten der Komponente testen (Logging, Returnvalues, \ldots)}
+					\item{Immer Fehlerfallverhalten der Komponente testen (Logging, Returnvalues, Exceptions, \ldots)}
 					\pause
 					\item{Zu ''lange'' Testfälle weisen auf ein Problem hin}
 				\end{itemize}

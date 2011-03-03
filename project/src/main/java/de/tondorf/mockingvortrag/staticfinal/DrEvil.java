@@ -1,4 +1,4 @@
-package de.tondorf.mockingvortrag.staticmethod;
+package de.tondorf.mockingvortrag.staticfinal;
 
 import org.apache.log4j.Logger;
 
