@@ -1,4 +1,4 @@
-package de.tondorf.mockingvortrag.dispenser.impl;
+package de.tondorf.kaffeemaschine;
 
 public class EmptyException extends IllegalStateException {
 

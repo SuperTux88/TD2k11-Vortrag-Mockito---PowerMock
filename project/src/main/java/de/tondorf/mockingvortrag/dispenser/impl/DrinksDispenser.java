@@ -2,6 +2,7 @@ package de.tondorf.mockingvortrag.dispenser.impl;
 
 import org.apache.log4j.Logger;
 
+import de.tondorf.kaffeemaschine.EmptyException;
 import de.tondorf.mockingvortrag.dispenser.Coke;
 import de.tondorf.mockingvortrag.dispenser.CokeRepository;
 import de.tondorf.mockingvortrag.dispenser.FantaRepository;

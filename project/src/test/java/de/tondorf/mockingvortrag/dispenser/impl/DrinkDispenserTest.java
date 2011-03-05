@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+import de.tondorf.kaffeemaschine.EmptyException;
 import de.tondorf.mockingvortrag.dispenser.CokeRepository;
 import de.tondorf.mockingvortrag.dispenser.Fanta;
 import de.tondorf.mockingvortrag.dispenser.FantaRepository;
